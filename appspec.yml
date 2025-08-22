@@ -1,19 +1,23 @@
 version: 0.0
 os: linux
+
 files:
-  - source: dist/test-angular-project
+  - source: dist/my-angular-project # ← buildspec과 동일하게 수정
     destination: /var/www/test-angular-project
+    file_exists_behavior: OVERWRITE
+
 permissions:
   - object: /var/www/test-angular-project
-    pattern: '**'
-    mode: '0755'
+    pattern: "**"
+    mode: "0755"
     owner: root
     group: root
     type:
       - file
       - directory
+
 hooks:
   ApplicationStart:
     - location: deploy-scripts/application-start-hook.sh
       timeout: 300
-      
+      runas: root
